@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import pub.devrel.easypermissions.EasyPermissions;
-import cn.louyu.lylibrary.core.utils.tools.PermissionsLogUtils;
+import cn.louyu.lylibrary.core.utils.tools.PermissionsLogUtil;
 
 /**
  * Created by sdj003 on 2018/5/22.
@@ -34,12 +34,12 @@ public abstract class BaseNeedPermissionsActivity extends BaseActivity implement
             //没有申请任何权限
             return;
         }
-        if (PermissionsLogUtils.easyCheckAllPermissions(context,permisstions)) {
+        if (PermissionsLogUtil.easyCheckAllPermissions(context,permisstions)) {
             //全部权限被允许
             return;
         }
         //权限拒绝 申请权限
-        String [] permissions=PermissionsLogUtils.checkDeniedPermissions(context,permisstions);
+        String [] permissions= PermissionsLogUtil.checkDeniedPermissions(context,permisstions);
         String message="应用需要申请:\n";
         for(String p:permissions){
             String permissuonName=getPermisstions().get(p);
