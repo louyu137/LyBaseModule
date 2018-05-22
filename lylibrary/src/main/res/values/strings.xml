@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LyLibrary</string>
+    <string name="ScanQRBtnClick">scanQRCode</string>
+</resources>

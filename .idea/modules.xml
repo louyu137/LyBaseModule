@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LyBaseModule.iml" filepath="$PROJECT_DIR$/LyBaseModule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lylibrary/lylibrary.iml" filepath="$PROJECT_DIR$/lylibrary/lylibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lylibrary/module/qrCodeScan/qrCodeScan.iml" filepath="$PROJECT_DIR$/lylibrary/module/qrCodeScan/qrCodeScan.iml" />
+    </modules>
+  </component>
+</project>
