@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import cn.louyu.lylibrary.core.interfaces.UIInterface;
 import cn.louyu.lylibrary.core.utils.helpers.ActivityPageManager;
+import cn.louyu.lylibrary.core.utils.tools.ToastUtil;
+
 /**
  * @author xiarui 2016/8/11
  * @description Activity 基类
@@ -52,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity implements UIInterf
      * @param msg 吐司内容
      */
     protected void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        ToastUtil.showToast(context,msg,Toast.LENGTH_SHORT);
     }
 
 

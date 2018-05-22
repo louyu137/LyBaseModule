@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import cn.louyu.lylibrary.core.interfaces.IFragmentUI;
+import cn.louyu.lylibrary.core.utils.tools.ToastUtil;
 
 /**
  * Created by sdj003 on 2018/5/19.
@@ -43,6 +44,6 @@ public abstract class BaseFragment extends Fragment implements IFragmentUI{
      * 弹出吐司
      * */
     protected void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        ToastUtil.showToast(context,msg,Toast.LENGTH_SHORT);
     }
 }
