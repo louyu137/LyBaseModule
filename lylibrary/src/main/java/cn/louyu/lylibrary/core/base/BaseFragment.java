@@ -44,6 +44,6 @@ public abstract class BaseFragment extends Fragment implements IFragmentUI{
      * 弹出吐司
      * */
     protected void showToast(String msg) {
-        ToastUtil.showToast(context,msg,Toast.LENGTH_SHORT);
+        ToastUtil.showToast(activity,msg,Toast.LENGTH_SHORT);
     }
 }

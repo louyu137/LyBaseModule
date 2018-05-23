@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.louyu.lylibrary.core.base.BaseNeedPermissionsActivity;
+import cn.louyu.lylibrary.core.component.LoadingDialog;
 
 public class MainActivity extends BaseNeedPermissionsActivity{
 
@@ -17,7 +18,8 @@ public class MainActivity extends BaseNeedPermissionsActivity{
 
     @Override
     public void initView() {
-
+        LoadingDialog loadingDialog=new LoadingDialog(context);
+        loadingDialog.show();
     }
 
     @Override
