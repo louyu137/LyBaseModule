@@ -36,7 +36,7 @@ public class DialogHelper {
         return sInstance;
     }
 
-    public AlertDialog showDialog(Context context,String title,String msg){
+    public AlertDialog showDialog(String title,String msg){
         heidDialog();
         dialog = builder.setTitle(title).setMessage(msg).show();
         return dialog;
