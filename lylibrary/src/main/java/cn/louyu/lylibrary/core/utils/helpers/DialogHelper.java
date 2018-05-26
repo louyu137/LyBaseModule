@@ -28,7 +28,9 @@ public class DialogHelper {
             synchronized (DialogHelper.class) {
                 if (sInstance == null||_context!=context) {
                     synchronized (DialogHelper.class) {
-                       sInstance = new DialogHelper(context);
+                        if(sInstance!=null)
+                            sInstance.heidLoadingDialog();
+                        sInstance = new DialogHelper(context);
                     }
                 }
             }

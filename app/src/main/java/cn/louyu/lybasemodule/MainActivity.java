@@ -2,12 +2,20 @@ package cn.louyu.lybasemodule;
 
 import android.Manifest;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.louyu.lylibrary.core.base.BaseNeedPermissionsActivity;
-import cn.louyu.lylibrary.core.component.LoadingDialog;
+import cn.louyu.lylibrary.core.models.ResultMsg;
+import cn.louyu.lylibrary.core.utils.helpers.DialogHelper;
+import cn.louyu.lylibrary.core.utils.okhttp.OkHttpJsonUtil;
+import cn.louyu.lylibrary.core.utils.okhttp.OkHttpUtil;
+import cn.louyu.lylibrary.core.utils.okhttp.OkHttpJsonListener;
+import cn.louyu.lylibrary.core.utils.tools.AssistantUtil;
 
 public class MainActivity extends BaseNeedPermissionsActivity{
 
@@ -18,13 +26,30 @@ public class MainActivity extends BaseNeedPermissionsActivity{
 
     @Override
     public void initView() {
-        LoadingDialog loadingDialog=new LoadingDialog(context);
-        loadingDialog.show();
+
     }
 
     @Override
     protected void _initData() {
+        new OkHttpUtil("http://jxc.luchengdaomi.com:8123/AppUpdate/getLastAppInfo", new OkHttpJsonListener() {
+            @Override
+            protected void onBefore() {
+                DialogHelper.getInstance(context).showLoadingDialog();
+            }
 
+            @Override
+            protected void onSuccess(ResultMsg msg) {
+                DialogHelper.getInstance(context).heidLoadingDialog();
+                ApkInfo apkInfo=new ApkInfo();
+                OkHttpJsonUtil.objToEntity(apkInfo,msg.Data,new String[]{});
+                showToast("APK Name:"+apkInfo.getAppName()+"/Version:"+apkInfo.getVersionName());
+            }
+
+            @Override
+            protected void onFailure(ResultMsg msg) {
+                DialogHelper.getInstance(context).heidLoadingDialog();
+            }
+        }).connect();
     }
 
     @Override

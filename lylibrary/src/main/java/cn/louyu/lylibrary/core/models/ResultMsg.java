@@ -1,5 +1,7 @@
 package cn.louyu.lylibrary.core.models;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -9,5 +11,6 @@ import java.io.Serializable;
 public class ResultMsg implements Serializable {
     public boolean Success;
     public String Msg;
-    public Object Data;
+    public JSONObject Data;
+    public int Status;
 }

@@ -1,4 +1,5 @@
-package cn.louyu.lylibrary.core.models;
+package cn.louyu.lylibrary.core.utils.tools;
+
 
 
 import org.json.JSONObject;
@@ -11,12 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
-
 public class AssistantUtil
-{  
-  
+{
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       
     /** 
@@ -26,13 +23,11 @@ public class AssistantUtil
      * @param  data Json数据
      * @param  excludes 需要排除的字段
      */  
-    public static void setJsonObjData(Object obj, JSONObject data, String[] excludes) throws Exception
-    {
+    public static <T> void setJsonObjData(T obj, JSONObject data, String[] excludes) throws Exception {
         // 反射获取这个类所有方法
         Method[] methods = obj.getClass().getDeclaredMethods();
         if (null != methods)  
-        {  
-  
+        {
             for (Method m : methods)  //遍历
             {  
   
@@ -80,40 +75,26 @@ public class AssistantUtil
             }  
         }  
   
-    }  
-      /**
-       * 判断被排除的数组（excludes）里是否有 这个（prop）属性
-       * @param excludes 被排除的数组
-       * @param prop 当前属性名
-       * */
-    private static boolean isExistProp(String[] excludes, String prop)
-    {  
-  
-        if (null != excludes)  //如果不等于null
-        {
-            for (String exclude : excludes)  
-            {  
-               if (prop.equals(exclude))  
-                {  
-                    return true;  
-                }  
-            }  
-        }  
-        return false;  
     }
 
-    public static <T> RequestBody getRequestBody( T obj){
-        FormBody.Builder builder= new FormBody.Builder();
-        List<Map<String,Object>> list =new AssistantUtil().getFiledsInfo(obj);
-        for(int i=0;i<list.size();i++){
-            String name=(String) list.get(i).get("name");
-            Object ob=list.get(i).get("value");
-            String value=ob==null?"":""+ob;
-            builder.add(name,value);
-        }
-        RequestBody requestBody=builder.build();
+    /**
+     * 判断被排除的数组（excludes）里是否有 这个（prop）属性
+     * @param excludes 被排除的数组
+     * @param prop 当前属性名
+     * */
+    private static boolean isExistProp(String[] excludes, String prop) {
 
-        return requestBody;
+        if (null != excludes)  //如果不等于null
+        {
+            for (String exclude : excludes)
+            {
+                if (prop.equals(exclude))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
