@@ -1,4 +1,4 @@
-package cn.louyu.lylibrary.core.utils.tools;
+package cn.louyu.lylibrary.core.utils.manager;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -12,7 +12,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * @author by louyu
  * @description 权限工具类
  * */
-public class PermissionsLogUtil {
+public class PermissionsLogManager {
     /**
      * 查看权限是否全部已申请权限
      * 如果有一个未成功申请返回false

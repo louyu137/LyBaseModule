@@ -9,7 +9,7 @@ import java.util.Map;
  * @author louyu
  * @version 1.0
  * */
-public class OkHttpJsonUtil {
+public class JsonObjToEntityUtil {
 
     private static final  Class [] baseType=new Class[]{java.lang.String.class,java.lang.Boolean.class,java.lang.Integer.class,java.lang.Long.class,
             java.lang.Float.class,java.lang.Double.class,java.util.Date.class};

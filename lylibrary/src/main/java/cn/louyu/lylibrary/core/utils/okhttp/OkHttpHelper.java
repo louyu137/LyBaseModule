@@ -19,14 +19,14 @@ import okhttp3.Response;
  * Created by sdj003 on 2018/5/25.
  */
 
-public class OkHttpUtil implements Callback{
+public class OkHttpHelper implements Callback{
     private String method="POST";
     private IRequest iRequest=null;
     private String url;
     private Call call=null;
     private Map<String,String> param=new HashMap<String,String>();
     private Map<String,String> header=new HashMap<String,String>();
-    public OkHttpUtil(String url, IRequest iRequest){
+    public OkHttpHelper(String url, IRequest iRequest){
         this.url=url;
         this.iRequest=iRequest;
     }
@@ -35,7 +35,7 @@ public class OkHttpUtil implements Callback{
     /**
      * 添加请求参数
      * */
-    public OkHttpUtil add(String name, String value){
+    public OkHttpHelper add(String name, String value){
         param.put(name,value);
         return this;
     }
@@ -43,7 +43,7 @@ public class OkHttpUtil implements Callback{
     /**
      * 添加header参数
      * */
-    public OkHttpUtil header(String key, String value){
+    public OkHttpHelper header(String key, String value){
         header.put(key,value);
         return this;
     }

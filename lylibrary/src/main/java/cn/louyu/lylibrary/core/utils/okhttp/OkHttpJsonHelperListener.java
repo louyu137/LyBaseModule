@@ -20,7 +20,7 @@ import okhttp3.Response;
  * @version 1.0
  */
 
-public abstract class OkHttpJsonListener extends Handler implements IRequest{
+public abstract class OkHttpJsonHelperListener extends Handler implements IRequest{
 
     /**
      * BEFORE={@BEFORE} 请求前的标记常量

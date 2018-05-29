@@ -11,8 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import cn.louyu.lylibrary.core.interfaces.UIInterface;
-import cn.louyu.lylibrary.core.utils.helpers.ActivityPageManager;
-import cn.louyu.lylibrary.core.utils.tools.ToastUtil;
+import cn.louyu.lylibrary.core.utils.manager.ActivityPageManager;
+import cn.louyu.lylibrary.core.utils.ui.LoadingDialogHelper;
+import cn.louyu.lylibrary.core.utils.ui.MessageDialogHelper;
+import cn.louyu.lylibrary.core.utils.ui.ToastHelper;
 
 /**
  * @author xiarui 2016/8/11
@@ -20,6 +22,8 @@ import cn.louyu.lylibrary.core.utils.tools.ToastUtil;
  */
 public abstract class BaseActivity extends AppCompatActivity implements UIInterface{
     protected Activity context;
+    private LoadingDialogHelper loadingDialog;
+    private MessageDialogHelper msgDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity implements UIInterf
         this.context=this;
         //把当前activity加入管理器
         ActivityPageManager.getInstance().addActivity(this);
+
+        loadingDialog=new LoadingDialogHelper(context);
+        msgDialog=new MessageDialogHelper(context);
         //初始化View
         initView();
 
@@ -54,7 +61,24 @@ public abstract class BaseActivity extends AppCompatActivity implements UIInterf
      * @param msg 吐司内容
      */
     protected void showToast(String msg) {
-        ToastUtil.showToast(context,msg,Toast.LENGTH_SHORT);
+        ToastHelper.showToast(context,msg,Toast.LENGTH_SHORT);
+    }
+
+    protected void showLoadingDialog(){
+        loadingDialog.showLoadingDialog("加载中...");
+    }
+
+
+    public void heidLoadingDialog(){
+        loadingDialog.heidLoadingDialog();
+    }
+
+    public void showDialog(String msg){
+        msgDialog.showDialog("提示",msg,null);
+    }
+
+    public void heidDialog(){
+        msgDialog.heidDialog();
     }
 
 
