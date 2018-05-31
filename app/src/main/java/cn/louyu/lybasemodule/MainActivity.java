@@ -2,9 +2,10 @@ package cn.louyu.lybasemodule;
 import android.view.View;
 
 import cn.louyu.lylibrary.core.base.BaseActivity;
+import cn.louyu.lylibrary.core.base.BaseScanActivity;
 import cn.louyu.lylibrary.core.utils.ui.LoadingDialogHelper;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseScanActivity{
 
     LoadingDialogHelper loadingDialog;
     @Override
@@ -33,5 +34,15 @@ public class MainActivity extends BaseActivity{
 
     public void button2(View view){
 
+    }
+
+    @Override
+    public void OnScanQRCodeBtnClick() {
+
+    }
+
+    @Override
+    public void OnReceiveScanResult(String result) {
+        showToast(result);
     }
 }

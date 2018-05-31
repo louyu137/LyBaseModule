@@ -3,7 +3,7 @@ package cn.louyu.lylibrary.core.base;
 import android.content.Intent;
 import android.view.View;
 
-import com.zbar.lib.CaptureActivity;
+import com.google.zxing.client.android.CaptureActivity;
 
 import cn.louyu.lylibrary.core.interfaces.IOnScanQRListener;
 import cn.louyu.lylibrary.core.interfaces.IScanQRCode;
