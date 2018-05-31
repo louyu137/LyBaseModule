@@ -42,8 +42,7 @@ public class AssistantUtil
 
                     //属性名不等于class 且没有被排除
                     if (!methodName.equalsIgnoreCase("class") && !isExistProp(excludes, methodName))  
-                    {  
-  
+                    {
                         try  
                         {
                             //调用这个setXxx方法，并传给它参数
@@ -69,7 +68,6 @@ public class AssistantUtil
                         } catch (Exception e) {
                             //异常处理
                         }
-  
                     }  
                 }  
             }  

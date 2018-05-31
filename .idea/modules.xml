@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/LyBaseModule.iml" filepath="$PROJECT_DIR$/LyBaseModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lylibrary/lylibrary.iml" filepath="$PROJECT_DIR$/lylibrary/lylibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lylibrary/module/qrCodeScan/qrCodeScan.iml" filepath="$PROJECT_DIR$/lylibrary/module/qrCodeScan/qrCodeScan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lylibrary/module/zxing/zxing.iml" filepath="$PROJECT_DIR$/lylibrary/module/zxing/zxing.iml" />
     </modules>
   </component>
 </project>

@@ -11,4 +11,8 @@ public class ResultMsg implements Serializable {
     public String Msg;
     public Object Data;
     public int Status;
+
+    public String getMsg(){
+        return Msg==null?"":Msg;
+    }
 }

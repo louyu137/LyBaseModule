@@ -1,6 +1,9 @@
 package cn.louyu.lylibrary.core.utils.okhttp;
 
 import java.lang.reflect.Method;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -30,8 +33,33 @@ public class JsonObjToEntityUtil {
             Method m=getMethodByName(entity,method);
             if(m==null)
                 continue;
-            invokeMethod(entity,m,entry.getValue());
+            try {
+                invokeMethod(entity, m, entry.getValue());
+            }catch (Exception e){
+
+            }
         }
+    }
+
+    /**
+     * com.alibaba.fastjson.JSONArray 数组转化为实体集合
+     * @param array json集合
+     * @param cls 实体的字节对象
+     * @excludes 需要排除不赋值的属性
+     * */
+    public static <T> List<T> arryToEntities(com.alibaba.fastjson.JSONArray array,Class<T> cls,String[] excludes){
+        List<T> list=new LinkedList<T>();
+        try {
+            for(int i=0;i<array.size();i++){
+                T entity=cls.newInstance();
+                com.alibaba.fastjson.JSONObject jsonObject=array.getJSONObject(i);
+                objToEntity(entity,jsonObject,excludes);
+                list.add(entity);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 
     /**
@@ -40,14 +68,25 @@ public class JsonObjToEntityUtil {
      * @param method 方法
      * @object object 参数值
      * */
-    private static <T> void invokeMethod(T entity,Method method,Object object){
+    private static <T> void invokeMethod(T entity,Method method,Object object)throws Exception{
         for(Class cls:baseType){
-            try {
-                if(method.getParameterTypes()[0].getName().equals(cls.getName())){
+            if(method.getParameterTypes()[0]==cls){
+                try {
+                    //尝试直接设值到方法
                     method.invoke(entity, object);
+                    return;
+                }catch (IllegalArgumentException e){
+                    try {
+                        //尝试强制转换并设值
+                        method.invoke(entity, cls.cast(object));
+                        return;
+                    }catch (ClassCastException e1){
+                        if(cls==String.class)
+                            //尝试转化为String
+                            method.invoke(entity, String.valueOf(object));
+                        return;
+                    }
                 }
-            }catch (Exception e){
-
             }
         }
     }
@@ -72,7 +111,7 @@ public class JsonObjToEntityUtil {
      * @param excludes 被排除的数组
      * @param prop 当前属性名
      * */
-    private static boolean isExistProp(String[] excludes, String prop) {
+    private static boolean isExistProp(String[] excludes, String prop){
 
         if (null != excludes)  //如果不等于null
         {
