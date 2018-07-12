@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.louyu.lylibrary.core.interfaces.IRequest;
+import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequest;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -20,6 +20,12 @@ import okhttp3.Response;
  */
 
 public class OkHttpHelper implements Callback{
+    private final static String GET="GET";
+    private final static String HEAD="HEAD";
+    private final static String POST="POST";
+    private final static String DELETE="DELETE";
+    private final static String PUT="PUT";
+    private final static String PATCH="PATCH";
     private String method="POST";
     private IRequest iRequest=null;
     private String url;
@@ -68,13 +74,27 @@ public class OkHttpHelper implements Callback{
         for (Map.Entry<String, String> entry : param.entrySet()) {
             formBodyBuilder.addEncoded( entry.getKey(),entry.getValue());
         }
-
-        RequestBody requestBody=formBodyBuilder.build();
-        Request.Builder rb=new Request.Builder().url(url).method(method,requestBody);
-        for (Map.Entry<String, String> entry : header.entrySet()) {
-            rb.header( entry.getKey(),entry.getValue());
+        RequestBody requestBody = formBodyBuilder.build();
+        Request.Builder rb=null;
+        switch (method){
+            case POST:
+            case DELETE:
+            case PATCH:
+            case PUT:
+                rb= new Request.Builder().url(url).method(method,requestBody);
+                break;
+            case GET:
+            case HEAD:
+                rb= new Request.Builder().url(url).method(method,null);
+                break;
+            default:
+                rb= new Request.Builder().url(url);
+                break;
         }
-        Request request =rb.build();
+        for (Map.Entry<String, String> entry : header.entrySet()) {
+            rb.header(entry.getKey(), entry.getValue());
+        }
+        Request request = rb.build();
         iRequest.onBeforeSend();
         OkHttpClient.Builder ob=new OkHttpClient.Builder();
         ob.build().newCall(request).enqueue(this);
