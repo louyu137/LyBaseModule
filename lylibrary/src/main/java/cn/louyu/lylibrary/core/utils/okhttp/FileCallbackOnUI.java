@@ -7,9 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.regex.Pattern;
 
 import cn.louyu.lylibrary.core.utils.okhttp.base.BaseCallbackOnUI;
-import cn.louyu.lylibrary.core.utils.okhttp.base.BaseSimpleCallbackOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.FileInfo;
-import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
 import cn.louyu.lylibrary.core.utils.okhttp.interfaces.OnDownloadListener;
 import okhttp3.Call;
 import okhttp3.Response;

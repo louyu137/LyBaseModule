@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import cn.louyu.lylibrary.core.utils.io.IOUtil;
+import cn.louyu.lylibrary.core.utils.io.CloseUtils;
 
 /**
  * Android 命令行工具
@@ -59,7 +59,7 @@ public class CommandUtils {
         }catch (InterruptedException e){
             e.printStackTrace();
         }finally {
-            IOUtil.closeQuietly(os);
+            CloseUtils.closeQuietly(os);
         }
         return false;
     }

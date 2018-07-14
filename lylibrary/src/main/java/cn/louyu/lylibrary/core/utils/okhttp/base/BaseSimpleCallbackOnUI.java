@@ -1,11 +1,9 @@
 package cn.louyu.lylibrary.core.utils.okhttp.base;
 
-import android.os.Handler;
 import android.os.Message;
 
 import java.io.IOException;
 
-import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequest;
 import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequestOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
 import okhttp3.Call;

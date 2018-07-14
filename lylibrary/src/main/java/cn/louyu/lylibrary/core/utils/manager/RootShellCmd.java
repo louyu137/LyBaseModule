@@ -2,7 +2,7 @@ package cn.louyu.lylibrary.core.utils.manager;
 
 import java.io.OutputStream;
 
-import cn.louyu.lylibrary.core.utils.io.IOUtil;
+import cn.louyu.lylibrary.core.utils.io.CloseUtils;
 
 /**
  * 执行shell 命令，需要root权限
@@ -31,6 +31,6 @@ public class RootShellCmd {
      * 关闭退出
      * */
     public final void exit(){
-        IOUtil.closeQuietly(os);
+        CloseUtils.closeQuietly(os);
     }
 }
