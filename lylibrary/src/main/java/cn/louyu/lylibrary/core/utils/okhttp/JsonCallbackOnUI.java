@@ -22,11 +22,7 @@ import okhttp3.Response;
  * @version 1.0
  */
 
-public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>> implements IRequestOnUI<List<T>>{
-
-    protected JsonCallbackOnUI() {
-        super.setIRequestOnUI(this);
-    }
+public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>>{
 
     @Override
     public void onSuccess(Call call, Response response) throws IOException {

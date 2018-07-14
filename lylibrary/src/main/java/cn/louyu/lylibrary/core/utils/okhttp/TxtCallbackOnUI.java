@@ -13,11 +13,7 @@ import okhttp3.Response;
  * 请求基类
  */
 
-public abstract class TxtCallbackOnUI extends BaseSimpleCallbackOnUI<String> implements IRequestOnUI<String>{
-
-    public TxtCallbackOnUI(){
-        super.setIRequestOnUI(this);
-    }
+public abstract class TxtCallbackOnUI extends BaseSimpleCallbackOnUI<String>{
 
     @Override
     public void onSuccess(Call call, Response response) throws IOException {

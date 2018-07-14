@@ -15,11 +15,8 @@ import okhttp3.Response;
  * Created by sdj003 on 2018/7/11.
  */
 
-public abstract class BitmapCallbackOnUI extends BaseSimpleCallbackOnUI<Bitmap> implements IRequestOnUI<Bitmap>{
+public abstract class BitmapCallbackOnUI extends BaseSimpleCallbackOnUI<Bitmap>{
 
-    public BitmapCallbackOnUI(){
-        super.setIRequestOnUI(this);
-    }
 
     @Override
     public void onSuccess(Call call, Response response) throws IOException {

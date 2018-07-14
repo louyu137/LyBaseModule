@@ -21,4 +21,5 @@ public abstract class BaseCallbackOnUI extends Handler implements IRequest {
      * FAILURE={@FAILURE} 请求失败的标记常量
      * */
     protected final int FAILURE=0x45287897;
+
 }

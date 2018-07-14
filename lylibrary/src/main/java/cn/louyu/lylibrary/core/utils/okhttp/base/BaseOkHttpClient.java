@@ -1,4 +1,4 @@
-package cn.louyu.lylibrary.core.utils.okhttp;
+package cn.louyu.lylibrary.core.utils.okhttp.base;
 
 import android.text.TextUtils;
 
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.louyu.lylibrary.core.utils.okhttp.entity.OKClient;
 import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequest;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -19,20 +20,20 @@ import okhttp3.Response;
  * Created by sdj003 on 2018/5/25.
  */
 
-public class OkHttpHelper implements Callback{
-    private final static String GET="GET";
-    private final static String HEAD="HEAD";
-    private final static String POST="POST";
-    private final static String DELETE="DELETE";
-    private final static String PUT="PUT";
-    private final static String PATCH="PATCH";
+public abstract class BaseOkHttpClient implements Callback{
+    public final static String GET="GET";
+    public final static String HEAD="HEAD";
+    public final static String POST="POST";
+    public final static String DELETE="DELETE";
+    public final static String PUT="PUT";
+    public final static String PATCH="PATCH";
     private String method=POST;
     private IRequest iRequest=null;
     private String url;
     private Call call=null;
     private Map<String,String> param=new HashMap<String,String>();
     private Map<String,String> header=new HashMap<String,String>();
-    public OkHttpHelper(String url, IRequest iRequest){
+    public BaseOkHttpClient(String url, IRequest iRequest){
         this.url=url;
         this.iRequest=iRequest;
     }
@@ -41,7 +42,7 @@ public class OkHttpHelper implements Callback{
     /**
      * 添加请求参数
      * */
-    public OkHttpHelper add(String name, String value){
+    public BaseOkHttpClient add(String name, String value){
         param.put(name,value);
         return this;
     }
@@ -49,7 +50,7 @@ public class OkHttpHelper implements Callback{
     /**
      * 添加header参数
      * */
-    public OkHttpHelper header(String key, String value){
+    public BaseOkHttpClient header(String key, String value){
         header.put(key,value);
         return this;
     }
@@ -57,16 +58,15 @@ public class OkHttpHelper implements Callback{
     /**
      * 设置请求方方式
      * */
-    public void setMethod(String method) {
-        if(TextUtils.isEmpty(method))
-            return;
-        this.method = method;
+    public BaseOkHttpClient setMethod(String method) {
+        this.method = TextUtils.isEmpty(method.trim())?POST:method;
+        return this;
     }
 
     /**
      * 拼接参数并请求连接，中文编码
      * */
-    public void connect(){
+    public OkHttpClient connect(){
         if(url==null||url.trim().length()<=0||iRequest==null){
             throw new IllegalArgumentException("请求前，请检查传入参数是否正确。");
         }
@@ -96,8 +96,13 @@ public class OkHttpHelper implements Callback{
         }
         Request request = rb.build();
         iRequest.onBeforeSend();
-        OkHttpClient.Builder ob=new OkHttpClient.Builder();
-        ob.build().newCall(request).enqueue(this);
+//        OkHttpClient.Builder ob=new OkHttpClient.Builder();
+//        ob.build().newCall(request).enqueue(this);
+
+        //单例OkHttpClient
+        OkHttpClient oc=OKClient.getInstance();
+        oc.newCall(request).enqueue(this);
+        return oc;
     }
 
     /**
