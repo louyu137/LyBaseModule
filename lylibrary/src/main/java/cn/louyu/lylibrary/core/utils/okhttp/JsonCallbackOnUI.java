@@ -9,8 +9,9 @@ import java.lang.reflect.ParameterizedType;
 import java.util.LinkedList;
 import java.util.List;
 
-import cn.louyu.lylibrary.core.utils.okhttp.base.BaseCallbackOnUI;
+import cn.louyu.lylibrary.core.utils.okhttp.base.BaseSimpleCallbackOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
+import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequestOnUI;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -21,7 +22,11 @@ import okhttp3.Response;
  * @version 1.0
  */
 
-public abstract class JsonCallbackOnUI<T> extends BaseCallbackOnUI<List<T>> {
+public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>> implements IRequestOnUI<List<T>>{
+
+    protected JsonCallbackOnUI() {
+        super.setIRequestOnUI(this);
+    }
 
     @Override
     public void onSuccess(Call call, Response response) throws IOException {
@@ -64,4 +69,5 @@ public abstract class JsonCallbackOnUI<T> extends BaseCallbackOnUI<List<T>> {
         return (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
     }
+
 }

@@ -6,7 +6,7 @@ import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
  * Created by sdj003 on 2018/7/11.
  */
 
-public interface IRequestOnUI<T> extends IRequest{
+public interface IRequestOnUI<T>{
     /**
      * 请求前回调函数
      * */

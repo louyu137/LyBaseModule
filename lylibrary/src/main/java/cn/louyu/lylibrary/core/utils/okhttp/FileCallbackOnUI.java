@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.regex.Pattern;
 
 import cn.louyu.lylibrary.core.utils.okhttp.base.BaseCallbackOnUI;
+import cn.louyu.lylibrary.core.utils.okhttp.base.BaseSimpleCallbackOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.FileInfo;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
 import cn.louyu.lylibrary.core.utils.okhttp.interfaces.OnDownloadListener;
@@ -66,9 +67,6 @@ public abstract class FileCallbackOnUI extends BaseCallbackOnUI implements OnDow
                 case downloadEnd:
                     this.onDownloadEnd();
                     break;
-                case FAILURE: //请求失败的操作
-                    this.onDownloadFailed(((ResultMsg)msg.obj).Msg);
-                    break;
                 default:
                     throw new IllegalArgumentException("非法的请求");
             }
@@ -79,7 +77,7 @@ public abstract class FileCallbackOnUI extends BaseCallbackOnUI implements OnDow
 
     @Override
     public void onBeforeSend() {
-        super.onBeforeSend();
+        this.sendEmptyMessage(BEFORE);
     }
 
     @Override
@@ -120,21 +118,7 @@ public abstract class FileCallbackOnUI extends BaseCallbackOnUI implements OnDow
 
     @Override
     public void onError(Call call, IOException e) {
-        super.onError(call, e);
+        this.sendMessage(this.obtainMessage(downloadFailed,e.getMessage()));
     }
 
-    @Override
-    public void onBeforeOnUI() {
-
-    }
-
-    @Override
-    public void onSuccessOnUI(ResultMsg msg) {
-
-    }
-
-    @Override
-    public void onFailureOnUI(ResultMsg msg) {
-
-    }
 }

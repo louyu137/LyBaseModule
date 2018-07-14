@@ -5,8 +5,9 @@ import android.graphics.BitmapFactory;
 
 import java.io.IOException;
 
-import cn.louyu.lylibrary.core.utils.okhttp.base.BaseCallbackOnUI;
+import cn.louyu.lylibrary.core.utils.okhttp.base.BaseSimpleCallbackOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
+import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequestOnUI;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -14,7 +15,7 @@ import okhttp3.Response;
  * Created by sdj003 on 2018/7/11.
  */
 
-public abstract class BitmapCallbackOnUI extends BaseCallbackOnUI<Bitmap> {
+public abstract class BitmapCallbackOnUI extends BaseSimpleCallbackOnUI<Bitmap> implements IRequestOnUI<Bitmap>{
 
 
     @Override

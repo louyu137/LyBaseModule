@@ -26,7 +26,7 @@ public class OkHttpHelper implements Callback{
     private final static String DELETE="DELETE";
     private final static String PUT="PUT";
     private final static String PATCH="PATCH";
-    private String method="POST";
+    private String method=POST;
     private IRequest iRequest=null;
     private String url;
     private Call call=null;

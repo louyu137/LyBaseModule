@@ -2,8 +2,9 @@ package cn.louyu.lylibrary.core.utils.okhttp;
 
 import java.io.IOException;
 
-import cn.louyu.lylibrary.core.utils.okhttp.base.BaseCallbackOnUI;
+import cn.louyu.lylibrary.core.utils.okhttp.base.BaseSimpleCallbackOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
+import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequestOnUI;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -12,7 +13,7 @@ import okhttp3.Response;
  * 请求基类
  */
 
-public abstract class TxtCallbackOnUI extends BaseCallbackOnUI<String> {
+public abstract class TxtCallbackOnUI extends BaseSimpleCallbackOnUI<String> implements IRequestOnUI<String>{
     @Override
     public void onSuccess(Call call, Response response) throws IOException {
         ResultMsg<String> msg=new ResultMsg<String>();
