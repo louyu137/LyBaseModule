@@ -110,7 +110,6 @@ public abstract class FileCallbackOnUI extends BaseCallbackOnUI implements OnDow
             progress+=len;
             this.sendMessage(this.obtainMessage(receiveProgress,byteBuffer));
         }
-
         this.sendEmptyMessage(downloadEnd);
     }
 

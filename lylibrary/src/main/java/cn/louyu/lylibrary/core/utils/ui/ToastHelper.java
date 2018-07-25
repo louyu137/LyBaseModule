@@ -9,12 +9,11 @@ import android.widget.Toast;
 
 public class ToastHelper {
     private static Toast toast=null;
-    private static Context _context=null;
     /**
      * 弹出一个吐司
      * */
     public static void showToast(Context context,String msg,int duration){
-        if(toast==null||_context!=context){
+        if(toast==null){
             toast=Toast.makeText(context,msg,duration);
         }else {
             toast.setText(msg);

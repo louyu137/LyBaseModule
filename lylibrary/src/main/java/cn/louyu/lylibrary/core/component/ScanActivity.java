@@ -21,5 +21,4 @@ public class ScanActivity extends CaptureActivity{
         this.setResult(Activity.RESULT_OK,intent);
         ActivityPageManager.getInstance().finishActivity(this);
     }
-
 }
