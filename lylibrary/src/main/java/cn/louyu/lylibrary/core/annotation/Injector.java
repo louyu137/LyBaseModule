@@ -14,10 +14,21 @@ public class Injector {
  
 	private static List<? extends ProcessorIntf<? extends AccessibleObject>> chain
             = Arrays.asList(new InjectViewProcessor(), new OnClickProcessor());
- 
+
+	/**
+     * 初始化Activity
+     * */
     public static void inject(Activity act) {
     	//传入activity实例和rootview
         inject(act,act.getWindow().getDecorView());
+    }
+
+    /**
+     * 初始化Fragment
+     * */
+    public static void inject(Fragment act) {
+        //传入activity实例和rootview
+        inject(act,act.getView().getRootView());
     }
  
     public static void inject(Object obj, View rootView) {
