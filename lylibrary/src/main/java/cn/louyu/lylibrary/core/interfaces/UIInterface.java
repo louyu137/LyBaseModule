@@ -1,5 +1,7 @@
 package cn.louyu.lylibrary.core.interfaces;
 
+import android.support.annotation.LayoutRes;
+
 public interface UIInterface {
 
     /**
@@ -7,7 +9,7 @@ public interface UIInterface {
      *
      * @return 布局文件Id
      */
-    int getLayoutId();
+    @LayoutRes int getLayoutId();
 
     /**
      * 初始化View

@@ -11,7 +11,6 @@ import java.util.List;
 
 import cn.louyu.lylibrary.core.utils.okhttp.base.BaseSimpleCallbackOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
-import cn.louyu.lylibrary.core.utils.okhttp.interfaces.IRequestOnUI;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -59,7 +58,6 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
         resultMsg.Data=list;
         this.sendMessage(this.obtainMessage(SUCCESS,resultMsg));
     }
-
 
     public Class<T> getTClass() {
         return (Class<T>) ((ParameterizedType) getClass()
