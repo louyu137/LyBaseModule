@@ -5,38 +5,27 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSON;
 
 import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.drafts.Draft_17;
-import org.java_websocket.handshake.ServerHandshake;
 
-import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.louyu.lylibrary.core.annotation.InjectView;
 import cn.louyu.lylibrary.core.annotation.Injector;
-import cn.louyu.lylibrary.core.utils.okhttp.BitmapCallbackOnUI;
-import cn.louyu.lylibrary.core.utils.okhttp.OkClientOnUI;
 import cn.louyu.lylibrary.core.utils.okhttp.entity.ResultMsg;
-import cn.louyu.lylibrary.core.utils.tools.SequentialMap;
 
 public class MainActivity extends BaseActionbarActivity{
 
-    @InjectView(R.id.image)
-    private ImageView image;
-    @InjectView(R.id.image2)
-    private ImageView image2;
-    @InjectView(R.id.image3)
-    private ImageView image3;
-    @InjectView(R.id.image4)
-    private ImageView image4;
-    @InjectView(R.id.image5)
-    private ImageView image5;
-    WebSocketClient webSocketClient;
-
+    @InjectView(R.id.requestText)
+    TextView requestText;
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -57,8 +46,15 @@ public class MainActivity extends BaseActionbarActivity{
 
     }
 
-    public void loadImage(View view){
-
+    public void loading(View view){
+        ResultMsg<List<String>> msg=new ResultMsg<>();
+        msg.Data=new ArrayList<String>();
+        msg.Data.add("哈哈哈哈1");
+        msg.Data.add("哈哈哈哈2");
+        msg.Data.add("哈哈哈哈3");
+        msg.Success=true;
+        msg.Msg="返回数据成功";
+        requestText.setText(JSON.toJSONString(msg));
     }
 
     public static void showNotifictionIcon(Context context,String msg) {

@@ -21,9 +21,11 @@ import cn.louyu.lylibrary.core.utils.ui.ToastHelper;
  * @description Activity 基类
  */
 public abstract class BaseActivity extends AppCompatActivity implements UIInterface{
+
     protected Activity context;
     private LoadingDialogHelper loadingDialog;
     private MessageDialogHelper msgDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity implements UIInterf
         loadingDialog.showLoadingDialog("加载中...");
     }
 
-
     public void heidLoadingDialog(){
         loadingDialog.heidLoadingDialog();
     }
@@ -80,7 +81,6 @@ public abstract class BaseActivity extends AppCompatActivity implements UIInterf
     public void heidDialog(){
         msgDialog.heidDialog();
     }
-
 
     /**
      * 触摸隐藏键盘
@@ -96,7 +96,6 @@ public abstract class BaseActivity extends AppCompatActivity implements UIInterf
         return super.dispatchTouchEvent(ev);
     }
 
-
     /**
      * 返回桌面
      */
@@ -107,4 +106,5 @@ public abstract class BaseActivity extends AppCompatActivity implements UIInterf
         startActivity(mHomeIntent);
         ActivityPageManager.getInstance().finishAllActivity();
     }
+
 }
