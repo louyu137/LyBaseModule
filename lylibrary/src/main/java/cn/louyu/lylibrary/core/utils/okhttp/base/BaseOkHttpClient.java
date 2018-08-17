@@ -46,6 +46,13 @@ public abstract class BaseOkHttpClient implements Callback{
         param.put(name,value);
         return this;
     }
+    /**
+     * 添加请求参数(注：会清空以前的数据)
+     * */
+    public BaseOkHttpClient add(Map<String,String> param){
+        this.param=param;
+        return this;
+    }
 
     /**
      * 添加header参数
