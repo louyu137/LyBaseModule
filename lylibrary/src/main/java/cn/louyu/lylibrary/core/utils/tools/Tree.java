@@ -1,12 +1,14 @@
 package cn.louyu.lylibrary.core.utils.tools;
 
+import android.support.annotation.NonNull;
+
 import java.util.*;
 
 /**
  * 树数据结构
  */
 
-public class Tree<T> {
+public class Tree<T> implements Comparable<Tree<T>>{
     private T data; //携带的数据
     private List<Tree<T>> childs; //孩子节点
     private Tree<T> parent; //此节点的父节点
@@ -296,4 +298,23 @@ public class Tree<T> {
         return this.parent.selfTierNum()+1;
     }
 
+    /**
+     * 对子节点进行排序
+     * */
+    public void sort(){
+        List<Tree<T>> list=levelVisit();
+        for (Tree<T> t : list){
+            if(t.hasChilds()){
+                Collections.sort(t.getChilds());
+            }
+        }
+    }
+
+
+    @Override
+    public int compareTo(@NonNull Tree<T> o) {
+        if(o.data instanceof Comparable)
+            return ((Comparable)o.data).compareTo(o.data);
+        return 0;
+    }
 }

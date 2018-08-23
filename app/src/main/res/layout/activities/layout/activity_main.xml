@@ -13,12 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Loading"
-        android:onClick="loading"
-        />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,10 +21,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-            <TextView
-                android:id="@+id/requestText"
-                android:layout_width="match_parent"
+            <Switch
+                android:id="@+id/switch_pin29"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="树莓派29号引脚"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="链接"
+                android:onClick="onConnect"
                 />
         </LinearLayout>
     </ScrollView>
