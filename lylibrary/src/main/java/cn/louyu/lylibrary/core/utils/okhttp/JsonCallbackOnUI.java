@@ -2,6 +2,7 @@ package cn.louyu.lylibrary.core.utils.okhttp;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
@@ -26,7 +27,12 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
     @Override
     public void onSuccess(Call call, Response response) throws IOException {
         String result=response.body().string();
-        ResultMsg msg=JSON.parseObject(result,ResultMsg.class);
+        ResultMsg msg=null;
+        try {
+            msg = JSON.parseObject(result, ResultMsg.class);
+        }catch (JSONException e){
+            //TODO========解析JSON错误===========
+        }
         ResultMsg<List<T>> resultMsg=new ResultMsg<List<T>>();
         if(msg==null||response.code()!=200){
             resultMsg.Success=false;
