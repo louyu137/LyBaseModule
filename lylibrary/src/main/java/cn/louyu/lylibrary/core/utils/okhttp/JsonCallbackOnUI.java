@@ -46,21 +46,23 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
         }
         List<T> list=new LinkedList<T>();
         Class<T> cls=getTClass();
-        if(msg.Data instanceof JSONObject){
-            JSONObject json=(JSONObject)msg.Data;
-            list.add(json.toJavaObject(cls));
-        }else if(msg.Data instanceof JSONArray){
-            JSONArray array=(JSONArray)msg.Data;
-            for(int i=0;i<array.size();i++){
-                JSONObject json=array.getJSONObject(i);
+        if(msg.Data!=null){
+            if(msg.Data instanceof JSONObject){
+                JSONObject json=(JSONObject)msg.Data;
                 list.add(json.toJavaObject(cls));
+            }else if(msg.Data instanceof JSONArray){
+                JSONArray array=(JSONArray)msg.Data;
+                for(int i=0;i<array.size();i++){
+                    JSONObject json=array.getJSONObject(i);
+                    list.add(json.toJavaObject(cls));
+                }
+            }else {
+                resultMsg.Success=false;
+                resultMsg.Msg="本地信息：Json数据反序列化失败\n"+(TextUtils.isEmpty(msg.Msg)?"":"远程信息："+msg.Msg);
+                resultMsg.Status=response.code();
+                this.sendMessage(this.obtainMessage(FAILURE,resultMsg));
+                return;
             }
-        }else {
-            resultMsg.Success=false;
-            resultMsg.Msg="本地信息：Json数据反序列化失败\n"+(TextUtils.isEmpty(msg.Msg)?"":"远程信息："+msg.Msg);
-            resultMsg.Status=response.code();
-            this.sendMessage(this.obtainMessage(FAILURE,resultMsg));
-            return;
         }
         resultMsg.Success=true;
         resultMsg.Status=response.code();
