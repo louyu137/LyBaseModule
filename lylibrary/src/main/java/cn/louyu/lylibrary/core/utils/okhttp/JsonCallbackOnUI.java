@@ -1,6 +1,7 @@
 package cn.louyu.lylibrary.core.utils.okhttp;
 
 import android.text.TextUtils;
+import android.widget.ExpandableListView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -67,9 +68,14 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
         this.sendMessage(this.obtainMessage(SUCCESS,resultMsg));
     }
 
-    public Class<T> getTClass() {
-        return (Class<T>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0];
+    public Class getTClass() {
+        try{
+            return (Class<T>) ((ParameterizedType) getClass()
+                    .getGenericSuperclass()).getActualTypeArguments()[0];
+        }catch (ClassCastException e){
+
+        }
+        return Object.class;
     }
 
 }
