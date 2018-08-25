@@ -1,5 +1,7 @@
 package cn.louyu.lylibrary.core.utils.okhttp;
 
+import android.text.TextUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
@@ -54,7 +56,7 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
             }
         }else {
             resultMsg.Success=false;
-            resultMsg.Msg="Json数据反序列化失败";
+            resultMsg.Msg="本地信息：Json数据反序列化失败\n"+(TextUtils.isEmpty(msg.Msg)?"":"远程信息："+msg.Msg);
             resultMsg.Status=response.code();
             this.sendMessage(this.obtainMessage(FAILURE,resultMsg));
             return;
