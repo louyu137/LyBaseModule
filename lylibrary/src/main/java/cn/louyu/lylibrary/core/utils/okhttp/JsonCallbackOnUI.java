@@ -57,11 +57,15 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
                     list.add(json.toJavaObject(cls));
                 }
             }else {
-                resultMsg.Success=false;
-                resultMsg.Msg="本地信息：Json数据反序列化失败\n"+(TextUtils.isEmpty(msg.Msg)?"":"远程信息："+msg.Msg);
-                resultMsg.Status=response.code();
-                this.sendMessage(this.obtainMessage(FAILURE,resultMsg));
-                return;
+                if(cls==Object.class){
+                    list.add((T)msg.Data);
+                }else {
+                    resultMsg.Success = false;
+                    resultMsg.Msg = "本地信息：Json数据反序列化失败\n" + (TextUtils.isEmpty(msg.Msg) ? "" : "远程信息：" + msg.Msg);
+                    resultMsg.Status = response.code();
+                    this.sendMessage(this.obtainMessage(FAILURE, resultMsg));
+                    return;
+                }
             }
         }
         resultMsg.Success=true;
