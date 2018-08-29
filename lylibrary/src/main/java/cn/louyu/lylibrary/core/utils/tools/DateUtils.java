@@ -23,6 +23,9 @@ import java.util.Date;
  * z:表示时区
  * */
 public class DateUtils {
+    private DateUtils() {
+        throw new AssertionError();
+    }
 
     public final static String yyyy_MM_dd = "yyyy-MM-dd";
     public final static String yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
