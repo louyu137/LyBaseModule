@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import okhttp3.Response;
  * OkHttp异步请求网络监听类
  * 作用：此类继承Handler，可以在回调函数操作与UI相关的动作
  * @author louyu
- * @version 1.0
+ * @version 2.0
  */
 
 public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>>{
@@ -53,8 +54,13 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
             }else if(msg.Data instanceof JSONArray){
                 JSONArray array=(JSONArray)msg.Data;
                 for(int i=0;i<array.size();i++){
-                    JSONObject json=array.getJSONObject(i);
-                    list.add(json.toJavaObject(cls));
+                    try{
+                        JSONObject json=array.getJSONObject(i);
+                        list.add(json.toJavaObject(cls));
+                    }catch (ClassCastException e){
+                        T object=array.getObject(i,cls);
+                        list.add(object);
+                    }
                 }
             }else {
                 if(cls==Object.class){
@@ -68,13 +74,14 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
                 }
             }
         }
-        resultMsg.Success=true;
-        resultMsg.Status=response.code();
+        resultMsg.Msg=msg.Msg;
+        resultMsg.Success=msg.Success;
+        resultMsg.Status=msg.Status;
         resultMsg.Data=list;
         this.sendMessage(this.obtainMessage(SUCCESS,resultMsg));
     }
 
-    public Class getTClass() {
+    private Class getTClass() {
         try{
             return (Class<T>) ((ParameterizedType) getClass()
                     .getGenericSuperclass()).getActualTypeArguments()[0];
@@ -83,5 +90,4 @@ public abstract class JsonCallbackOnUI<T> extends BaseSimpleCallbackOnUI<List<T>
         }
         return Object.class;
     }
-
 }

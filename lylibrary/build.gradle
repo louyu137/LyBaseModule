@@ -36,4 +36,7 @@ dependencies {
     implementation project(':zxing')
 
     compile 'com.android.support:multidex:1.0.2'
+
+    //图片加载框架
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
