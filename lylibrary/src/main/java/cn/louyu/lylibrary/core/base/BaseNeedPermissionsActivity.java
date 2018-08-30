@@ -1,5 +1,6 @@
 package cn.louyu.lylibrary.core.base;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -20,12 +21,12 @@ public abstract class BaseNeedPermissionsActivity extends BaseActivity implement
     private List<String> permisstions=new ArrayList<String>();
 
     @Override
-    public void initData() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         for(Map.Entry<String,String> entry:getPermisstions().entrySet()){
             permisstions.add(entry.getKey());
         }
         notifyNeedPermissions();
-        _initData();
     }
 
     protected void notifyNeedPermissions(){
@@ -71,9 +72,6 @@ public abstract class BaseNeedPermissionsActivity extends BaseActivity implement
         }
         OnPermissionsTransientDenied(requestCode,perms);
     }
-
-    //接着初始化数据
-    protected abstract void _initData();
 
     //获取权限map
     protected  abstract Map<String,String> getPermisstions();

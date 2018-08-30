@@ -12,7 +12,7 @@ public class ResultMsg<T extends Object> implements Serializable {
     public T Data;
     public int Status;
 
-//    public String getMsg(){
-//        return Msg==null?"":Msg;
-//    }
+    public String getNotNullMsg(){
+        return Msg==null?"":Msg;
+    }
 }

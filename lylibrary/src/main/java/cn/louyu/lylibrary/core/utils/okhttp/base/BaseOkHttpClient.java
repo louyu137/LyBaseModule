@@ -79,7 +79,7 @@ public abstract class BaseOkHttpClient implements Callback{
         }
         FormBody.Builder formBodyBuilder= new FormBody.Builder();
         for (Map.Entry<String, String> entry : param.entrySet()) {
-            formBodyBuilder.addEncoded( entry.getKey(),entry.getValue());
+            formBodyBuilder.addEncoded( entry.getKey(),entry.getValue()==null?"":entry.getValue());
         }
         RequestBody requestBody = formBodyBuilder.build();
         Request.Builder rb=null;
