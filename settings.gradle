@@ -1,2 +1,1 @@
-include ':app', ':lylibrary', ':zxing'
-project(':zxing').projectDir = new File('lylibrary/module/zxing')
+include ':app', ':lymvplibrary'
