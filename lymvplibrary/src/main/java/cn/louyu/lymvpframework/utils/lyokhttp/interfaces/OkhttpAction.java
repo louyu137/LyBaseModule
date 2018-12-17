@@ -15,20 +15,20 @@ public interface OkhttpAction {
     /**
      * 向服务器发送字符串
      * */
-    Call sendString(String url, String data, LyCallback callback);
+    Call sendString(String url, String data, ICallback callback);
 
     /**
      * 向服务器提交Json数据
      * */
-    Call sendJson(String url,String json,LyCallback callback);
+    Call sendJson(String url,String json,ICallback callback);
 
     /**
      * 向服务器提交表单数据
      * */
-    Call sendForm(String url,Map<String,String> param,LyCallback callback);
+    Call sendForm(String url,Map<String,String> param,ICallback callback);
 
     /**
      * 向服务器提交文件
      * */
-    Call sendFile(String url,File file,LyCallback callback);
+    Call sendFile(String url,File file,ICallback callback);
 }

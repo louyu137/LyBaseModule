@@ -62,7 +62,16 @@ public abstract class ObjectCallbackOnUIHandler<T> extends CallbackHandler<T>{
                 this.handler.sendMessage(message);
                 return;
             }
-            if(String.class==cls){  //如果泛型类型为String类型
+            if(cls==null){
+                message.what=this.FAILURE;
+                message.obj="发生错误，服务器已响应，获取泛型类型失败，请尝试：" +
+                        "1.请明确指定泛型类型；" +
+                        "2.重写getTClass方法；" +
+                        "3.抽象子类";
+                logcat((String) message.obj);
+                this.handler.sendMessage(message);
+                return;
+            }else if(String.class==cls){  //如果泛型类型为String类型
                 message.obj=bodyStr;//不解析直接赋值
             }else {
                 message.obj=JSON.parseObject(bodyStr,cls);

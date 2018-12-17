@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.louyu.lymvpframework.utils.lyokhttp.interfaces.LyCallback;
+import cn.louyu.lymvpframework.utils.lyokhttp.interfaces.ICallback;
 import cn.louyu.lymvpframework.utils.lyokhttp.interfaces.OkhttpAction;
 import okhttp3.Call;
 import okhttp3.FormBody;
@@ -16,20 +16,48 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * Created by sdj003 on 2018/12/14.
+ * 网络请求客户端工具
  */
 
 public class LyOkHttpClient implements OkhttpAction {
     /**
      * 请求方法，默认为请求POST请求
      * */
-    private String method=Method.POST;
+    private String method=Method.POST.method;
 
     /**
      * 请求头
      * */
     private Map<String,String> header=new HashMap<String,String>();
 
+
+    /**
+     * 请求方法
+     * */
+    public enum Method{
+        GET("GET"),
+        HEAD("HEAD"),
+        POST("POST"),
+        DELETE("DELETE"),
+        PUT("PUT"),
+        PATCH("PATCH");
+
+        String method;
+
+        Method(String method){
+            this.method=method;
+        }
+
+    }
+
+    /**
+     * 发送的媒体类型
+     * */
+    public interface MediaTypes{
+        MediaType TEXT = MediaType.parse("text/plain;charset=utf-8");
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        MediaType STREAM = MediaType.parse("application/octet-stream");
+    }
 
     /**
      * 添加头
@@ -51,29 +79,29 @@ public class LyOkHttpClient implements OkhttpAction {
     /**
      * 设置请求方法
      * */
-    public void setMethod(String method) {
-        this.method = method;
+    public void setMethod(Method method) {
+        this.method = method.method;
     }
 
     @Override
-    public Call sendString(String url, String data, LyCallback callback) {
+    public Call sendString(String url, String data, ICallback callback) {
         Request request = getRequestByMethod(url,method,header,RequestBody.create(MediaTypes.TEXT,data==null?"":data));
         return startRequest(request,callback);
     }
 
     @Override
-    public Call sendJson(String url, String json, LyCallback callback) {
+    public Call sendJson(String url, String json, ICallback callback) {
         header.put("Content-Type","application/json");
         Request request = getRequestByMethod(url,method,header,RequestBody.create(MediaTypes.JSON,json==null?"":json));
         return startRequest(request,callback);
     }
 
     @Override
-    public Call sendForm(String url, Map<String, String> param, LyCallback callback) {
+    public Call sendForm(String url, Map<String, String> param, ICallback callback) {
         FormBody.Builder formBodyBuilder= new FormBody.Builder();
         if(param!=null){
             for (Map.Entry<String, String> entry : param.entrySet()) {
-                formBodyBuilder.addEncoded( entry.getKey(),entry.getValue()==null?"":entry.getValue());
+                formBodyBuilder.addEncoded( entry.getKey().trim(),entry.getValue()==null?"":entry.getValue());
             }
         }
         Request request = getRequestByMethod(url,method,header,formBodyBuilder.build());
@@ -81,7 +109,7 @@ public class LyOkHttpClient implements OkhttpAction {
     }
 
     @Override
-    public Call sendFile(String url, File file, LyCallback callback) {
+    public Call sendFile(String url, File file, ICallback callback) {
         if(file==null) {
             callback.onFailure(null,new IOException("文件为空"));
         }
@@ -99,7 +127,7 @@ public class LyOkHttpClient implements OkhttpAction {
     /**
      * 开始请求
      * */
-    private Call startRequest(Request request, LyCallback callback){
+    private Call startRequest(Request request, ICallback callback){
         urlIllegal(request.url().toString());
 
         Call call = OkClient.getInstance().newCall(request);
@@ -115,15 +143,15 @@ public class LyOkHttpClient implements OkhttpAction {
      * */
     private static Request getRequestByMethod(String url,String method,Map<String,String> header,RequestBody requestBody){
         Request.Builder rb;
-        switch (method){
-            case Method.POST:
-            case Method.DELETE:
-            case Method.PATCH:
-            case Method.PUT:
+        switch (Method.valueOf(method)){
+            case POST:
+            case DELETE:
+            case PATCH:
+            case PUT:
                 rb= new Request.Builder().url(url).method(method,requestBody);
                 break;
-            case Method.GET:
-            case Method.HEAD:
+            case GET:
+            case HEAD:
                 rb= new Request.Builder().url(url).method(method,null);
                 break;
             default:
@@ -134,26 +162,5 @@ public class LyOkHttpClient implements OkhttpAction {
             rb.header(entry.getKey(), entry.getValue());
         }
         return rb.build();
-    }
-
-    /**
-     * 请求方法
-     * */
-    public interface Method{
-         String GET="GET";
-         String HEAD="HEAD";
-         String POST="POST";
-         String DELETE="DELETE";
-         String PUT="PUT";
-         String PATCH="PATCH";
-    }
-
-    /**
-     * 发送的媒体类型
-     * */
-    public interface MediaTypes{
-        MediaType TEXT = MediaType.parse("text/plain;charset=utf-8");
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        MediaType STREAM = MediaType.parse("application/octet-stream");
     }
 }
